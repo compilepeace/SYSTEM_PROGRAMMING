@@ -1,0 +1,17 @@
+
+Man pages are organised into sections - 
+
+Web   : Google "man7 open"
+Shell : man -S2 open or man -S3 printf 
+
+
+SECTION DESCRIPTION
+
+1	General commands
+2	System Calls
+3	Library functions (in particular C standard library)
+4	Special files (usually devices found in /dev) and drivers
+5	File formats and conventions
+6	Games and screensavers
+7	Miscellanea
+8	System administration commands and daemons
