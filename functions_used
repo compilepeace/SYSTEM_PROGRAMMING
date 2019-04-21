@@ -11,3 +11,9 @@ strtok()	- String Tokenize (Read man page thoroughly before using).
 memcpy()	- copies n bytes starting from 'src' to 'dest'
 memmove()	- A safer version of memcpy (works even when the memory regions overlap)
 
+
+##	2_PROCESSES
+
+fork()
+exec()
+waitpid()
