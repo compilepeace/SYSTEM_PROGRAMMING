@@ -1,46 +1,38 @@
 
-##	LIST OF USEFUL SIGNALS
 
-SIGINT	- User could send this signal (by Ctrl+c) to stop the process nicely. 
-SIGQUIT - Tells the process to stop harshly.
-SIGSTOP - You can Pause a process by sending this signal. Freezes the process (no more CPU given)
-SIGCONT - To allow a Paused process to Resume execution.
-SIGKILL - Send it to terminate a process 
+NOTE :	Include -pthread (or -lthread) as compiler option to tell the compiler we need threading
+		support. Include <pthread.>
 
 
-##	TYPES
-
-pid_t			# This type stores the PID of a process (typedef int)
-sig_atomic_t	# Ensures that all the bits of the var can be read/modified as an 'Atomic Operation'
-
-
-##	Terminal Superhero Commands
-
-ulimit -u 40			# To limit maximum number of processes to 40 (small number)
-kill -9 -1				# working on fork() remotely, this one's lifesaviour in emergency situation
-kill -9 <PID>			# Kill all processes you can kill. Generates a signal SIGKILL (9) 
-kill -SIGSTOP <PID>		# Command gives a signal to the process with PID
-kill -s <SIGNAL> <PID>	# Send a 'signal (by name)' to the process with pid PID.
-kill -l <NUMBER>		# Translate the 'number' into signal name
-kill -L					# List available signal choices Table
-ps						# Report a snapshot of current process
+clone					# Creates a child process in a manner similar to fork().
+pthread_create			# Create a process thread
+pthread_join			# [+] Wait for your thread to finish and then return and continue executing main.
+pthread_cancel			# Sends a cancellation request to the thread
+pthread_exit			# Terminates the calling thread, i.e. the thread never returns after calling it.
+						# After executing child thread, it exits the process too. Creates thread zombies
+pthread_yield			# Causes the calling thread to free the CPU.
 
 
-##	fork-exec-wait Pattern
+##	LOCK OR MUTEX (MUTual EXclusion)
+=>	If you lock a mutex, it does'nt stop all other threads. Its only when a thread attempts to lock a 
+	mutex that is already locked, will the thread have to wait.
 
-setrlimit()		# To limit the no. of child processes created
-fork()			# Create a process duplicating the parent's process address space
-exec()			# execute a program, replacing the parent's process addresss space with new program's
-waitpid()		# To wait for child process to finish
-wait()			# The parent process will wait until wait(or waitpid) returns 
-getenv()		# Returns the value for the Environment variable passed as argument
-setenv()		# Sets a new environment variable to its value (both passed as argument to this f())
-sleep()			# Takes in no. of seconds as arg and sleeps the process for that much seconds
-kill()			# To send any signal to any process/ process group
-signal()		# Calls the 'signal-handler' routine on recieving a particular SIGNAL.
+pthread_mutex_lock		# Place this function at the start of critical section to lock a shared resource
+pthread_mutex_unlock	# Place this function at the end of critical section to unlock a shared resource 
+pthread_mutex_destroy	# To destroy an mutex. NOTE: you can only destroy an unlocked mutex.
+pthread_mutex_init		# To create a mutex
 
 
-##	Interesting MAN Pages
+##	SEMAPHORES
 
-man -s7 signal
+sem_init				# Initializes an unnamed semaphore
+sem_wait				# waits if count is 0 and decrement count by one and returns if count != 0
+sem_post				# Anounce that we've finished
+
+
+
+##	MACROS
+
+PTHREAD_MUTEX_INITIALIZER	# Similar to pthread_mutex_init() 
+
 
