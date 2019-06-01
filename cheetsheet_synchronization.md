@@ -1,4 +1,7 @@
+```
+@ All Notes are from Angrev's sytem programming tutorial plus my own addon's. Some concepts can be incorrect also (due to my addon's).
 
+```
 
 NOTE :	Include -pthread (or -lthread) as compiler option to tell the compiler we need threading
 		support. Include <pthread.>
