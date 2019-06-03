@@ -1,8 +1,8 @@
 // Author : Abhinav Thakur
 // Email  : compilepeace@gmail.com
 
-// Description : Header contains function to print file properties (using struct stat and lstat())
-
+// Description : This module contains all the operations that are being performed on files.
+  
 
 /*
 
@@ -21,9 +21,7 @@ struct stat {
                time_t    st_mtime;   // time of last modification 
                time_t    st_ctime;   // time of last status change 
            };
-
 */
-
 
 
 #include <stdio.h>
@@ -38,21 +36,33 @@ struct stat {
 #include "operations.h"
 
 
-// This function prints file properties
+void print_file_properties(char *);
+void getfiletype(char *);
+
+
+// This function prints out file metadata/properties (by using struct stat and lstat())
 void print_file_properties(char *filename)
 {
 	struct stat statbuf;
 
 	// Returns the metadata of the file. If the file is a symbolic link, it returns the info. about 
 	// the symlink rather than the file it is pointing to.
-	lstat(filename, &statbuf);
+	int status = lstat(filename, &statbuf);
+	if ( status == -1 )
+	{
+		printf(MAGENTA"[+] "RESET"lstat status: %d\n", status);
+		//perror(RED"[-]"RESET" While 'print_file_properties' in lstat(): ");
+		//exit(0x20);
+	}
 
 
 	// Printing out the last accessed, modified and status change time
-//	fprintf(stdout, BLUE"\n\t\t=-=-=-=-=- FILE PROPERTIES -=-=-=-=-=\n\n"RESET);
-	fprintf(stdout, GREEN"\t[+]"RESET" Last accessed \t\t:"GREEN" %s"RESET, ctime( &(statbuf.st_atime)) );
-	fprintf(stdout, GREEN"\t[+]"RESET" Last modified \t\t:"GREEN" %s"RESET, ctime( &(statbuf.st_mtime)) );
-    fprintf(stdout, GREEN"\t[+]"RESET" Last status change time \t:"GREEN" %s"RESET, ctime( &(statbuf.st_ctime)) );
+	if ( ctime( &(statbuf.st_atime)) != NULL )
+		fprintf(stdout, GREEN"\t[+]"RESET" Last accessed \t\t:"GREEN" %s"RESET, ctime( &(statbuf.st_atime)) );
+	if ( ctime( &(statbuf.st_mtime)) )
+		fprintf(stdout, GREEN"\t[+]"RESET" Last modified \t\t:"GREEN" %s"RESET, ctime( &(statbuf.st_mtime)) );
+    if ( ctime( &(statbuf.st_ctime)) )
+		fprintf(stdout, GREEN"\t[+]"RESET" Last status change time \t:"GREEN" %s"RESET, ctime( &(statbuf.st_ctime)) );
 
 	
 	// Printing out the inode number
@@ -62,7 +72,41 @@ void print_file_properties(char *filename)
     fprintf(stdout, GREEN"\t[+]"RESET" Number of hard links \t:"GREEN" %ld\n"RESET, statbuf.st_nlink);
 	fprintf(stdout, GREEN"\t[+]"RESET" Size (in bytes) \t\t:"GREEN" %ld\n"RESET, statbuf.st_size );
     fprintf(stdout, GREEN"\t[+]"RESET" Block size \t\t\t:"GREEN" %ld\n"RESET, statbuf.st_blksize );
+    fprintf(stdout, GREEN"\t[+]"RESET" File type \t\t\t: ");
+	
+}
 
 
-	fprintf(stdout, "\n");
+
+// Returns the type of file
+void getfiletype(char *filename)
+{
+	struct stat s;
+
+
+	// extract the properties of the file into struct stat object - 's'
+	int status = lstat(filename, &s);
+
+
+	// Here S_IFMT is the bitmask for filetype field. Alternatively we could use S_ISDIR( s.st_mode)
+	// to check if the current file is a directory
+	switch(s.st_mode & S_IFMT)
+	{
+		case S_IFBLK:	fprintf(stdout, CYAN"Block device\n\n");
+						break;
+		case S_IFCHR:	fprintf(stdout, CYAN"Character device\n\n");
+						break;
+		case S_IFDIR:	fprintf(stdout, BLUE"Directory\n\n");
+						break;
+		case S_IFIFO:	fprintf(stdout, CYAN"FIFO/PIPE\n\n");
+						break;
+		case S_IFLNK: 	fprintf(stdout, MAGENTA"Symbolic link\n\n");
+						break;
+		case S_IFREG: 	fprintf(stdout, YELLOW"Regular file\n\n");
+						break;
+		case S_IFSOCK:	fprintf(stdout, CYAN"Socket\n\n");
+						break;
+		default:		fprintf(stdout, RED"Unknkown??\n\n");
+						break;
+	}
 }

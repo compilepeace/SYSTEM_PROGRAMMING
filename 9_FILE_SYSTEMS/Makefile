@@ -1,5 +1,5 @@
 
-.PHONY: all
+.PHONY: clean 
 
 CC= gcc
 
@@ -32,3 +32,4 @@ $(OBJECTS)/2_dir_operations.o: 2_dir_operations.c
 
 clean: 
 	rm $(SPIDER) $(OBJECTS)/*
+
