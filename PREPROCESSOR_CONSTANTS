@@ -1,0 +1,5 @@
+
+
+LINE			# Holds the current line number	
+FILE			# Holds the filename
+_FUNCTION_		# Holds the function name

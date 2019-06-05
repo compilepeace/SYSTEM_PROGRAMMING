@@ -16,9 +16,6 @@
 #include "operations.h"
 
 
-void getfiletype_wrapper(char *, char *);
-void reccurse_dir_entries(char *);
-
 
 void reccurse_dir_entries(char *location)
 {

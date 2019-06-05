@@ -36,9 +36,6 @@ struct stat {
 #include "operations.h"
 
 
-void print_file_properties(char *);
-void getfiletype(char *);
-
 
 // This function prints out file metadata/properties (by using struct stat and lstat())
 void print_file_properties(char *filename)
@@ -47,7 +44,7 @@ void print_file_properties(char *filename)
 
 	// Returns the metadata of the file. If the file is a symbolic link, it returns the info. about 
 	// the symlink rather than the file it is pointing to.
-	int status = lstat(filename, &statbuf);
+	int status = stat(filename, &statbuf);
 	if ( status == -1 )
 	{
 		printf(MAGENTA"[+] "RESET"lstat status: %d\n", status);
