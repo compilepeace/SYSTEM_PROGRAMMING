@@ -10,16 +10,16 @@ This Repository contains my implementations to operating system concepts via sys
     * [Chapter 5]
     * [Chapter 6]
 * [ANSI C]
-    * [Introduction]
+    * [Introduction To ANSI C]
     * [Types Operators Expressions]
     * [Structures]
 * [C Programming]
-    * [Introduction]
+    * [Introduction To C]
     * [Text IO]
     * [Common Gotchas]
     * [Structs Strings]
 * [Processes]
-    * [Introduction]
+    * [Introduction To Processes]
     * [Pattern Zombies]
     * [Signals]
 * [Memory]
@@ -46,18 +46,18 @@ Link to wiki-book : https://github.com/angrave/SystemProgramming/wiki
 [Chapter 6]: ./0_Introduction/Chapter_6
 
 [ANSI C]: ./__ANSI_C
-[Introduction]: ./__ANSI_C/0_Introduction
+[Introduction To ANSI C]: ./__ANSI_C/0_Introduction
 [Types Operators Expressions]: ./__ANSI_C/1_types_operators_expressions
 [Structures]: ./__ANSI_C/6_Structures
 
 [C Programming]: ./1_C_PROGRAMMING
-[Introduction]: ./1_C_PROGRAMMING/1_INTRODUCTION
+[Introduction To C]: ./1_C_PROGRAMMING/1_INTRODUCTION
 [Text IO]: ./1_C_PROGRAMMING/2_TEXT_IO
 [Common Gotchas]: ./1_C_PROGRAMMING/3_COMMON_GOTCHAS
 [Structs Strings]: ./1_C_PROGRAMMING/4_STRUCTS_STRINGS
 
 [Processes]: ./2_PROCESSES
-[Introduction]: ./2_PROCESSES/Part1_Intro
+[Introduction To Processes]: ./2_PROCESSES/Part1_Intro
 [Pattern Zombies]: ./2_PROCESSES/Part2_Pattern_Zombies
 [Signals]: ./2_PROCESSES/Part3_Signals
 
