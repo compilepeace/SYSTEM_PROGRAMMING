@@ -3,13 +3,22 @@
 
 ```
 
-##	LIST OF USEFUL SIGNALS
+##  C POSIX call for signals
 
-SIGINT	- User could send this signal (by Ctrl+c) to stop the process nicely. 
+kill()          # To send any signal to any process/ process group
+signal()        # Calls the 'signal-handler' routine on recieving a particular SIGNAL. Used to change
+				#signal deposition
+sleep()         # Takes in no. of seconds as arg and sleeps the process for that much seconds
+
+
+##	LIST OF USEFUL SIGNALS
+A signal allows one process to asynchronously send a signal/message to another process.
+
+SIGINT	- User could send this signal (by Ctrl+c) to stop the process nicely. (can be caught) 
 SIGQUIT - Tells the process to stop harshly.
 SIGSTOP - You can Pause a process by sending this signal. Freezes the process (no more CPU given)
 SIGCONT - To allow a Paused process to Resume execution.
-SIGKILL - Send it to terminate a process 
+SIGKILL - Send it to terminate a process (Cannot be caught) 
 
 
 ##	TYPES
@@ -30,20 +39,11 @@ kill -L					# List available signal choices Table
 ps						# Report a snapshot of current process
 
 
-##	fork-exec-wait Pattern
 
-setrlimit()		# To limit the no. of child processes created
-fork()			# Create a process duplicating the parent's process address space
-exec()			# execute a program, replacing the parent's process addresss space with new program's
-waitpid()		# To wait for child process to finish
-wait()			# The parent process will wait until wait(or waitpid) returns 
-getenv()		# Returns the value for the Environment variable passed as argument
-getpid()		# Returns PID of the currently running process
-getppid()		# Returns PID of the parent Process
-setenv()		# Sets a new environment variable to its value (both passed as argument to this f())
-sleep()			# Takes in no. of seconds as arg and sleeps the process for that much seconds
-kill()			# To send any signal to any process/ process group
-signal()		# Calls the 'signal-handler' routine on recieving a particular SIGNAL.
+##	Check return value of child process (2 MACROS) (https://github.com/angrave/SystemProgramming/wiki/Process-Control%2C-Part-1%3A-Wait-macros%2C-using-signals)
+
+WIFEXITED()
+WEXITSTATUS()
 
 
 ##	Interesting MAN Pages
