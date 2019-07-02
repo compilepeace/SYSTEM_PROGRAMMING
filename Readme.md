@@ -1,4 +1,3 @@
-[![HitCount](http://hits.dwyl.io/{username}/{project}.svg)](http://hits.dwyl.io/{username}/{project})
 
 # SYSTEM PROGRAMMING
 This Repository contains my implementations to operating system concepts via system programming (implemented using C programming language) as an attempt to know about the insights of how things run under the hood. Repository contains implementation of many basic as well as critical topics of operating systems.
