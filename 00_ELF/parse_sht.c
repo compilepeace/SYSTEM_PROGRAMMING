@@ -95,6 +95,12 @@ int main(int argc, char **argv)
 
 
 
+//---------------------------------------------------------------------------------------------------------
+
+
+	// SECTION HEADER TABLE PARSE
+
+
 	// Load SHT offset(in sht_offset) and no. of headers (entries) in SHT (in shdr_count) and size of
 	// each header(entry) in SHT (in shdr_size).
 	// Also load address of .shstrtab (mmaped into memory) to identify section names (.text section).
@@ -139,23 +145,25 @@ int main(int argc, char **argv)
 			// Address to character array storing section names
 			elf_shstrtab = (char *)(map_address + elf_shdr->sh_offset);
 
-			printf("Iterating over : %s\n", (char *)(elf_shstrtab + section_name_offset ));
+			printf("Iterating over : "RED"%s"RESET"\n", (char *)(elf_shstrtab + section_name_offset ));
 		}
 
 		else {
 			
-			printf("Iterating over : %s\n", (char *)(elf_shstrtab + section_name_offset));
+			printf("Iterating over : "RED"%s"RESET"\n", (char *)(elf_shstrtab + section_name_offset));
 			char *section_name = (char *)(elf_shstrtab + section_name_offset);
 			if ( strncmp(".text", section_name, 5) == 0 )
 			{
 				text_section_offset = elf_shdr->sh_offset;
 				text_section_size = elf_shdr->sh_size;
-				printf(".text section found @offset : 0x%lx, size : 0x%lx\n", text_section_offset, text_section_size);
 			}
 		}
 
 		// Point to next Shdr entry
 		--elf_shdr;
 	}
+		
+		printf(GREEN"\n[+]"YELLOW" .text section"RESET" found @offset : 0x%lx, size : 0x%lx\n", text_section_offset, text_section_size);
+
 
 }
