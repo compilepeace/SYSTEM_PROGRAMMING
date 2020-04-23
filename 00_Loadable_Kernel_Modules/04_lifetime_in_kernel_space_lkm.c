@@ -11,8 +11,8 @@
 #include <asm/param.h>			// defines the constant HZ
 
 
-unsigned long long my_lifetime; 
-unsigned long long my_jiffies;
+static unsigned long my_lifetime; 
+static unsigned long my_jiffies;
 
 // The keyword static will restrict the function to be visible to other .c files
 static int getting_started(void)
@@ -31,7 +31,7 @@ static void departure(void)
 {
 	my_jiffies = jiffies - my_jiffies;
 	my_lifetime = (my_jiffies / HZ);
-	printk( KERN_INFO "Compilepeace stayed in the kernel for: %llu seconds !\n", my_lifetime);
+	printk( KERN_INFO "Compilepeace stayed in the kernel for: %lu seconds !\n", my_lifetime);
 }
 
 

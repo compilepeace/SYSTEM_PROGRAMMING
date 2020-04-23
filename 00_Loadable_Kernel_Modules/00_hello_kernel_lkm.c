@@ -12,6 +12,7 @@
 // The keyword static will restrict the function to be visible to other .c files
 static int getting_started(void)
 {
+	// Including '\n' causes the buffer to be flushed 
 	printk( KERN_INFO "Just here to say hello to the kernel !\n" );
 	return 0;
 }
