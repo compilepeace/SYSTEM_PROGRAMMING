@@ -42,34 +42,34 @@ Previous implementation repository contains code written while studying Angrave'
 
 Link to wiki-book : https://github.com/angrave/SystemProgramming/wiki
 
-[Introduction]: ./previous_implementation/0_Introduction
-[Chapter 1]: ./previous_implementation/0_Introduction/Chapter_1
-[Chapter 2]: ./previous_implementation/0_Introduction/Chapter_2
-[Chapter 3]: ./previous_implementation/0_Introduction/Chapter_3
-[Chapter 4]: ./previous_implementation/0_Introduction/Chapter_4
-[Chapter 5]: ./previous_implementation/0_Introduction/Chapter_5
-[Chapter 6]: ./previous_implementation/0_Introduction/Chapter_6
+[Introduction]: ./previous_implementation/02_Introduction
+[Chapter 1]: ./previous_implementation/02_Introduction/Chapter_1
+[Chapter 2]: ./previous_implementation/02_Introduction/Chapter_2
+[Chapter 3]: ./previous_implementation/02_Introduction/Chapter_3
+[Chapter 4]: ./previous_implementation/02_Introduction/Chapter_4
+[Chapter 5]: ./previous_implementation/02_Introduction/Chapter_5
+[Chapter 6]: ./previous_implementation/02_Introduction/Chapter_6
 
 [ANSI C]: ./previous_implementation/__ANSI_C
 [Introduction To ANSI C]: ./previous_implementation/__ANSI_C/0_Introduction
 [Types Operators Expressions]: ./previous_implementation/__ANSI_C/1_types_operators_expressions
 [Structures]: ./previous_implementation/__ANSI_C/6_Structures
 
-[C Programming]: ./previous_implementation/1_C_PROGRAMMING
-[Introduction To C]: ./previous_implementation/1_C_PROGRAMMING/1_INTRODUCTION
-[Text IO]: ./previous_implementation/1_C_PROGRAMMING/2_TEXT_IO
-[Common Gotchas]: ./previous_implementation/1_C_PROGRAMMING/3_COMMON_GOTCHAS
-[Structs Strings]: ./previous_implementation/1_C_PROGRAMMING/4_STRUCTS_STRINGS
+[C Programming]: ./previous_implementation/03_C_PROGRAMMING
+[Introduction To C]: ./previous_implementation/03_C_PROGRAMMING/1_INTRODUCTION
+[Text IO]: ./previous_implementation/03_C_PROGRAMMING/2_TEXT_IO
+[Common Gotchas]: ./previous_implementation/03_C_PROGRAMMING/3_COMMON_GOTCHAS
+[Structs Strings]: ./previous_implementation/03_C_PROGRAMMING/4_STRUCTS_STRINGS
 
-[Processes]: ./previous_implementation/2_PROCESSES
-[Introduction To Processes]: ./previous_implementation/2_PROCESSES/Part1_Intro
-[Pattern Zombies]: ./previous_implementation/2_PROCESSES/Part2_Pattern_Zombies
-[Signals]: ./previous_implementation/2_PROCESSES/Part3_Signals
+[Processes]: ./previous_implementation/04_PROCESSES
+[Introduction To Processes]: ./previous_implementation/04_PROCESSES/Part1_Intro
+[Pattern Zombies]: ./previous_implementation/04_PROCESSES/Part2_Pattern_Zombies
+[Signals]: ./previous_implementation/04_PROCESSES/Part3_Signals
 
-[Memory]: ./previous_implementation/3_MEMORY
-[Processes and Threads]: ./previous_implementation/4_PTHREADS
-[Synchronization]: ./previous_implementation/5_SYNCHRONIZATION
-[Inter Process Communication and Scheduling]: ./previous_implementation/7_IPC_AND_SCHEDULING
-[Network Programming]: ./previous_implementation/8_NETWORKING
-[File System Programming]: ./previous_implementation/9_FILE_SYSTEMS
-[Project]: ./previous_implementation/9_FILE_SYSTEMS/Project_directory_reccurse
+[Memory]: ./previous_implementation/05_MEMORY
+[Processes and Threads]: ./previous_implementation/06_PTHREADS
+[Synchronization]: ./previous_implementation/07_SYNCHRONIZATION
+[Inter Process Communication and Scheduling]: ./previous_implementation/08_IPC_AND_SCHEDULING
+[Network Programming]: ./previous_implementation/09_NETWORKING
+[File System Programming]: ./previous_implementation/10_FILE_SYSTEMS
+[Project]: ./previous_implementation/10_FILE_SYSTEMS/Project_directory_reccurse
