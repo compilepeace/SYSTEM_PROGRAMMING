@@ -142,3 +142,134 @@ And the following records would appear in the group file:
     teach:x:104:avr,rlb,alc
 ```
 
+```
+/* Library functions */
+
+#define _BSD_SOURCE     /* Get getpass() declaration from <unistd.h> */
+#define _XOPEN_SOURCE   /* Get crypt() declaration from <unistd.h> */
+#define 
+
+#include <sys/types.h>
+
+#include <pwd.h>        /* for getpwnam|getpwuid | getpwent|setpwent|endpwent */
+#include <grp.h>        /* for getgrnam|getgrgid | getgrent|setgrent|endgrent */
+#include <shadow.h>     /* for getspnam          | getspent|setspent|endspent */
+
+#include <unistd.h>     /* for  getpass|crypt (compile with –lcrypt option to 
+                           link against crypt library) */
+
+struct passwd {
+char *pw_name;      /* Login name (username) */
+char *pw_passwd;    /* Encrypted password (if not password shadowing) */
+uid_t pw_uid;       /* User ID */
+gid_t pw_gid;       /* Group ID */
+char *pw_gecos;     /* Comment (user info) */
+char *pw_dir;       /* Initial working (home) directory */
+char *pw_shell;     /* Login shell */
+};
+
+
+struct group {
+char *gr_name;      /* Group name */
+char *gr_passwd;    /* Encrypted password (if not password shadowing) */
+gid_t gr_gid;       /* Group ID */
+char **gr_mem;      /* NULL-terminated array of pointers to names
+                       of members listed in /etc/group */
+};
+
+
+struct spwd {
+char *sp_namp;      /* Login name (username) */
+char *sp_pwdp;      /* Encrypted password */
+
+/* Remaining fields support "password aging", an optional
+feature that forces users to regularly change their
+passwords, so that even if an attacker manages to obtain
+a password, it will eventually cease to be usable. */
+
+long sp_lstchg;     /* Time of last password change (days since 1 Jan 1970) */
+long sp_min;        /* Min. number of days between password changes */
+long sp_max;        /* Max. number of days before change required */
+long sp_warn;       /* Number of days beforehand that user is
+                       warned of upcoming password expiration */
+long sp_inact;      /* Number of days after expiration that account
+                       is considered inactive and locked */
+long sp_expire;     /* Date when account expires
+                       (days since 1 Jan 1970) */
+unsigned long sp_flag;      /* Reserved for future use */
+};
+```
+
+* struct passwd \***`getpwnam`** (const char *name);  
+~ Given a *login name* in *name*, it finds the relevant field in passwd file and returns a *statically allocated  passwd structure* (which is overwritten on each call to one of these functions) (as defined below) on success, or NULL on error (and also if no entry by this *name* is found).  
+~ The *pw_passwd* field contains a valid info. only if password shadowing is enabled (Programmatically, the simplest way to determine whether password shadowing is enabled is to follow a successful getpwnam() call with a call to getspnam()).  
+
+
+* struct passwd \***`getpwuid`** (uid_t uid);  
+~ The getpwuid() function returns exactly the same information as getpwnam(), but
+does a lookup using the numeric user ID supplied in the argument uid.
+
+* struct group \***`getgrnam`** (const char *name);   
+~ The getgrnam() function looks up group information by group name, and the
+getgrgid() function performs lookups by group ID. Both functions return a pointer
+to a *statically allocated group structure*.  
+~ As with the corresponding password functions described above, this structure is  overwritten on each call to one of these functions.
+~ return a pointer on success, or NULL on error (and not found case).
+
+
+* struct group \***`getgrgid`** (gid_t gid);  
+~ same as *getgrnam* except that it takes a *group ID* rather than a *group name* as parameter.
+
+* struct spwd \***`getspnam`** (const char *name);  
+~ fetches the *shadow passwd record* for *login name* identified by *name* parameter analogous to getpwnam().
+<br>
+<br>
+
+
+> #### Sequencial Scanning of all Records in Passwd & Group files
+
+* struct passwd \***`getpwent`** (void);  
+~ Returns records from the passwd file one by one, returning NULL when there are no more records (or an error occurs).
+
+```
+// We can walk through all the records on by one
+struct passwd *pwd;
+
+while ( (pwd = getpwent()) != NULL) {
+    printf ("%-8s %5ld\n", pwd->pw_name, (long )pwd->pw_uid);
+
+endpwent();
+}
+```
+
+* void **`setpwent`** (void);  
+~ If we are part-way parsing through passwd file entries (with getpwent), we can call setpwent() to start from the beginning of passwd file (without reopening passwd file which is what endpwent will do). 
+
+* void **`endpwent`** (void);  
+~ After calling endpwent(), any call to getpwent() will *reopen* passwd file and start from the beginning.  
+
+* struct group \***`getgrent`** (void);
+* void **`setgrent`** (void);
+* void **`endgrent`** (void);  
+
+* struct spwd \***`getspent`** (void);
+* void **`setspent`** (void);
+* void **`endspent`** (void);
+
+### PASSWORD ENCRYPTION AND USER AUTHENTICATION
+
+* char \***`crypt`** (const char *key, const char *salt);  
+~ crypt() encapsulates the *one-way encryption algorithm* (which means there is no way of re-creating password from its encrypted form).  
+~ crypt() takes in a *key* (i.e. the password) of up to **8 characters**, and applies a variation of **DES algorithm** (Data Encryption Standard) to it.  
+~ The *salt* value is a **2 character** string whose value is used to vary the algorithm.  
+~ The function returns a *pointer* to *statically allocated encrypted password*, i.e. a **13 character** string.  
+~ Both the salt argument and the encrypted password are composed of characters selected from the 64-character set `[a-zA-Z0-9/.]`.  
+
+* char \***`getpass`** (const char *prompt);  
+~ The getpass() function first disables echoing and all processing of terminal special characters (such as Ctrl+c).  
+~ It then prints the string pointed to by prompt, and reads a line of input, returning the null-terminated input string with the trailing newline stripped, as its function result.  
+~ This string is statically allocated, and so will be overwritten on a subsequent call to getpass().   
+~ Before returning, getpass() restores the terminal settings to their original states.  
+~ Returns pointer to statically allocated input password string on success, or NULL on error.  
+
+---
