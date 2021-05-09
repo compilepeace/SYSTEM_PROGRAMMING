@@ -28,9 +28,6 @@ int main (int argc, char **argv) {
     /* ____ test/add code here */
 
 
-    if (close(logfd) == -1)
-        errSysExit (DEBUG_INFO, "while closing log file");
-
     return 0;
 }
 
