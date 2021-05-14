@@ -15,19 +15,22 @@
 
 #include "peace_helper.h"
 
+
 /* MACRO definitions */
 #define DEBUG_INFO  __FILE__,__FUNCTION__,__LINE__
-#define MY_LOG_OPT_CHAR  0x200
+#define LOG_OPT_CHAR  300
+#define HELP_OPT_CHAR 301
 #define MAX_LEN_FILENAME 0xff
+
 
 
 /* Parse cmd line flags to get information that decides further program flow */
 void parse_opts (int argc, char **argv) {   
 
     static struct option long_options[] = {
-        {"log",             optional_argument,  NULL,   MY_LOG_OPT_CHAR},
-    /*  {"something",       required_argument,  NULL,   's'}, add options here ____ */      
-        {"usage",           no_argument,        NULL,   'u'},
+        {"log",             optional_argument,  NULL,   LOG_OPT_CHAR},
+        {"help",            no_argument,        NULL,   HELP_OPT_CHAR},
+        {"generate",        optional_argument,  NULL,   'g'},
         {0, 0, 0, 0}
     };
     int optchar, openLogFlags, failFlag = 0;
@@ -40,7 +43,7 @@ void parse_opts (int argc, char **argv) {
         usage_error (argv[0]);
 
     /* add command-line options here */
-    while ( (optchar = getopt_long (argc, argv, "+:l::u" /* ____ add optstring here */, long_options, nullptr)) != -1) {
+    while ( (optchar = getopt_long (argc, argv, "+:g::" /* ____ add optstring here */, long_options, nullptr)) != -1) {
         /*  '+' char in  optstring above is for portability reasons
             ':' char after '+' is to supress getopt() default error messages
         
@@ -56,7 +59,7 @@ void parse_opts (int argc, char **argv) {
         switch (optchar) {
 
             /* ____ add options */
-            case MY_LOG_OPT_CHAR:
+            case LOG_OPT_CHAR:
                         /* --log [filename] */
 
                         if (optarg) {
@@ -93,9 +96,13 @@ void parse_opts (int argc, char **argv) {
                         free (logFileName);
                         break;
 
-            case 'u':   /* --usage */
+            case HELP_OPT_CHAR:   
+                        /* --help */
                         usage_error (argv[0]);
-                        break; 
+                        break;
+
+            case 'g':   /* generate entity */
+                        break;
 
             case '?':   /* 
                             'Unrecognized Option' character encountered & stored in optopt. 
@@ -106,13 +113,13 @@ void parse_opts (int argc, char **argv) {
                             Another way to supress getopt() error messages is to put a ':'
                             character at the start of 'optstring' parameter.
                         */
-                        debugMsg (DEBUG_INFO, "Unrecognized Option: %c\n", optopt);
+                        errUsrMsg (DEBUG_INFO, "Unrecognized Option: %c", optopt);
                         usage_error (argv[0]);
 
             case ':':   /* 
                             'Missing Argument' for option 
                         */
-                        debugMsg (DEBUG_INFO, "Missing Argument for option: %c\n", optopt);
+                        errUsrMsg (DEBUG_INFO, "Missing Argument for option: %c", optopt);
                         usage_error (argv[0]);
             default :
                         usage_error (argv[0]);
@@ -138,14 +145,20 @@ void usage_error (const char *program_name) {
 
                     "\n" BOLDRED
                     "[-]" BOLDCYAN
-                    " Usage: " BOLDGREEN "%s " BOLDWHITE "[l|u] \n\t" RESET /* ____ add options here */
-                    BOLDBLUE "NA" RESET " | " BOLDBLUE "--log=[filename]            " RESET ":" DIM YELLOW " log in [filename] (if filename not supplied, create a <project_name>.log)\n\t" RESET
-                    BOLDBLUE "-u" RESET " | " BOLDBLUE "--usage                     " RESET ":" DIM YELLOW " print help \n\t" RESET
+                    " Usage: " BOLDGREEN "%s " BOLDWHITE "[g] \n" RESET /* ____ add options here */
+                    BOLDBLUE "\t%-2s" RESET " | " BOLDBLUE "%-30s" RESET ":" DIM YELLOW " %s \n" RESET
+                    BOLDBLUE "\t%-4s %25s \n" RESET
+                    BOLDBLUE "\t%-2s" RESET " | " BOLDBLUE "%-30s" RESET ":" DIM YELLOW " %s \n" RESET
+                    BOLDBLUE "\t%-2s" RESET " | " BOLDBLUE "%-30s" RESET ":" DIM YELLOW " %s \n" RESET
                     "\n" RED 
                     "NOTE" RESET ": --log option does not support short flag (NA stands for Not Applicable)."
                                  " An '=' sign is mandatory to specify filename (undocumented by getopt manual) \n\n",
 
-            program_name);
+            program_name,
+            "-g", "--generate=[entity]", "generate one of the entities",
+            " " , "entity = [shadow_passwd|backdoor_entry]",
+            "NA", "--help", "print usage",
+            "NA", "--log=[filename]", "log in [filename] (if filename not supplied, create a <project_name>.log)");
     
-    exit (0xd3ad);
+    exit (0xff);
 }
