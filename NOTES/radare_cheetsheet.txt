@@ -1,0 +1,131 @@
+## Syntax
+$ r2 server.exe
+
+>>
+	?		# help
+	aaa		# Analyse the binary
+	afl		# list functions
+	q		# quit
+
+
+## Configuration
+$ touch ~/.radare2rc
+```
+command to set r2 env variables
+
+	# sets comments at right of disassembly if they fit in screen (e stands for evaluate)
+	e asm.cmt.right=true
+
+	# shows pseudocode in disassembly. eg mov eax, str.ok = > eax = str.ok
+	e asm.pseudo = true
+
+	# display stack and register values on top of disassembly view (visual mode)
+	e cmd.stack = true
+
+	# solarized theme
+	eco solarized
+
+	# Use UTF-8 to show sexy arrows rather than ASCII chars
+	e scr.utf8 = true
+```
+>>
+	e		# see our current configuration (evaluable variables)
+	Ve		# 'Visual mode' to see what configurations are available
+	e scr.nkey =?	# tells what possible values can this 'evaluable var' have.
+
+## Binary info
+'~' (tilde) is the character for grep. 
+>>
+	i?		# get information about the binary
+	iA		# info 'architecture'
+	ii		# info 'imports'
+
+	i~^s		# grep for 'binary info' starting with s
+
+
+## Navigating in the binary
+>>
+	aaa		# analyze
+	afl		# (a)nalyze (f)untion (l)ist
+	s sym.main	# 'seek' to a memory address or a symbol
+	
+	# printing some disassembly (of a function)
+	p?
+	pd		# (p)rint (d)isassembly @ current location offset ($$)
+	pd 10$$		# print 10 disassembly statements from current offset ($$)
+	pdf		# (p)rint (d)isassembly (f)unction at current offset
+	pdf @sym.myfnc	# pdf at myfnc symbol
+
+	# Mathematical Calculations
+	? 0x10+6*2
+
+	# Adding comments
+	C?		# help for comments
+	CC my_comment @0x80481a
+
+## Cross References
+>>
+	aaa
+	iz~Password	# print strings, grepping for "Password"
+	
+	ax?
+	axt 0x804955d	# see where string "password" is used.
+	pd 10@0x804955d # print disassembly of 10 instructions at 0x804955d
+	
+
+## Dynamic Analysis (Debugging)
+$ r2 -d server.exe	# to load the binary for debugging (not in execution yet)
+>>
+
+	aaa
+	afl
+	axt sym.secret	# check where is the secret() function called from.
+
+	d?		# help for (d)ebugging
+	
+	db		# list breakpoints
+	db sym.myfunc  	# set breakpoint at myfunc()
+	dc		# start a process
+	V		# get into the visual mode
+		?		# gives help inside visual mode
+		P		# change to the debug view
+		q		# get out of visual mode
+		S		# Step over instruction
+		s		# step in an instruction
+		:		# get into interactive shell  without leaving visual mode
+			px 4@[ebp+0x8]	# print 4 he(x)adecimal bytes @ ebp+0x8
+
+	do		# open/restart process
+	
+	
+## Patching (w?)
+$ r2 -d server.exe
+>>
+	aaa
+	afl
+	db sym.secret	# set breakpoint at secret()
+	dc		# run the program
+	pd 2@$$		# print disassembly 2 instructions from $$ (current offset)
+
+$ r2 -w server.exe 		# open binary in patch/write mode
+>>
+	w?		# writing/patching help
+	wa?		# (w)rite (a)ssembly 
+	wao?		# (w)rite (a)ssembly (o)pcode
+	wao nop		# (w)rite NOP bytes in place of current instruction (at $$)
+	
+	V		# open call graph
+		s		# step in
+		S 		# step over
+		tab		# select next block (of code)
+		TAB		# select previous block (of code)
+		t		# follow the true block
+		f		# follow the false block/node
+		+		# zoom in
+		- 		# zoom out
+	
+
+
+	
+
+	
