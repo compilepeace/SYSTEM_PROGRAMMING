@@ -10,10 +10,7 @@ extern char etext, edata, end;  /* For example, &etext gives the address of the 
 extern char **environ;          /* variable pointing to the environment list */
 ```
 ![memory_layout_of_a_process](./images/memory_layout.png) 
-* The file `/proc/sys/kernel/pid_max` (2**22 for 64 bit Linux) stores one greater than the maximum PID any process can have. After this value, the kernel starts assigning PIDs again starting from 300.
-* `/proc/kallsyms` provides addresses of all symbols in kernel space
-* `/proc/PID/cmdline` can be used to access cmd-line arguments of any process.
-* `/proc/PID/environ` contains the environment list for a process.
+
 * pstree
 * size <binary_exe>
 
@@ -58,6 +55,56 @@ environ = NULL;         // this way we can clear up the environment
 * void **`longjmp`** (jmp_buf env, int val);  
 
 ---
+
+
+## **SYSTEM & PROCESS INFORMATION (man 5 proc)**
+Further information about the /proc file system can be found in the proc(5) manual page, in the kernel source file `Documentation/filesystems/proc.txt`, and in various files in the `Documentation/sysctl` directory.
+Reference to /proc FS kernel doc : https://www.kernel.org/doc/html/latest/filesystems/proc.html
+
+### **The /proc Filesystem**
+The /proc file system is said to be *virtual* because the files and subdirectories that it contains don’t reside on a disk. Instead, the kernel creates them “on the fly” as processes access them. It allows one to analyze or change some attributes of the kernel. Relevant files in `/proc` filesystem- 
+
+![procfs](./images/procfs.png)
+![proc_directory](./images/proc_directory.png)
+![proc_pid_directory](./images/proc_pid_directory.png)
+
+* `/proc/sys/kernel/pid_max` (storing values of 2**22 for 64 bit Linux) stores one greater than the maximum PID any process can have. After this value, the kernel starts assigning PIDs again starting from 300.
+* `/proc/kallsyms` provides addresses of all symbols in kernel space
+
+### **Interface**
+```
+#include <sys/utsname.h>        /* uname */
+#include <unistd.h>             /* gethostname | sethostname */
+
+```
+
+```
+#define _UTSNAME_LENGTH 65
+
+struct utsname {
+    char sysname[_UTSNAME_LENGTH]; /* Implementation name */
+    char nodename[_UTSNAME_LENGTH]; /* Node name on network */
+    char release[_UTSNAME_LENGTH]; /* Implementation release level */
+    char version[_UTSNAME_LENGTH]; /* Release version level */
+    char machine[_UTSNAME_LENGTH]; /* Hardware on which system is running */
+#ifdef _GNU_SOURCE /* Following is Linux-specific */
+    char domainname[_UTSNAME_LENGTH]; /* NIS domain name of host */
+#endif
+};
+``` 
+
+* int **`uname`** (struct utsname *utsbuf);  
+~ Provides a range of identifying information about the host system on which an application is running.  
+~ Returns 0 on success, or -1 on error.  
+
+* int **`gethostname`** (char *name, size_t len);    
+* int **`sethostname`** (const char *name, size_t len);   
+~ These  system  calls  are used to access or to change the system hostname.  
+~ On success, zero is returned.  On error, -1 is returned, and errno is set appropriately.  
+
+
+---
+
 
 ## **PROCESS CREDENTIALS (man 7 credentials)**
 Every process has a set of associated **credentials** in the form of numeric *UIDs* & *GIDs*. These are as follows - 
