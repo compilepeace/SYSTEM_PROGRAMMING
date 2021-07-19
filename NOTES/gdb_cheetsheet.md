@@ -123,7 +123,7 @@ Bytes can be disassembled by specifying either of - **function symbol** or **add
 
 [registers]: https://sourceware.org/gdb/onlinedocs/gdb/Registers.html 
 
-## **Misc**
+
 ## **Backtracing function calls** (Stacktrace)
 ```
 STEPPING OVER|INTO|OUT
