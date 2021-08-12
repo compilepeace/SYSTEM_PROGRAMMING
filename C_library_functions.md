@@ -4,6 +4,7 @@
 
 ### Memory functions
 Here source and destination are memory addresses.  
+* **memmem**    : find the first occurrence of NEEDLE in HAYSTACK.
 * **memcpy**    : copy N bytes of SRC to DEST  
 * **memccpy**   : Copy no more than N bytes of SRC to DEST, stopping when C is found. Return the position in DEST one byte past where C was copied, or NULL if C was not found in the first N bytes of SRC.   
 * **memmove**   : copy N bytes of SRC to DEST, guaranteeing correct behavior for overlapping strings.  
@@ -12,8 +13,6 @@ Here source and destination are memory addresses.
 * **memchr**    : search N bytes of S for C.  
 * **memrchr**   : search N bytes of S for the final occurence of C.  
 * **rawmemchr** : search in S for C. This is similar to `memchr` but there is no length limit.  
-
-* **memmem**    : find the first occurrence of NEEDLE in HAYSTACK.
 
 ### String functions  
 Here source and destination are strings (array of characters terminated by a NULL byte).  
@@ -41,7 +40,7 @@ Here source and destination are strings (array of characters terminated by a NUL
 
 * **strstr**    : find the first occurrence of NEEDLE in HAYSTACK.
 * **strcasestr**: similar to `strstr` but this function ignores the case of both strings.  
-* **strtok**    : Divide S into tokens separated by characters in DELIM.  
+* **strtok**    : divide S into tokens separated by characters in DELIM.  
 
 * **strerror**          : return a string describing the meaning of the `errno` code in ERRNUM parameter.
 * **strsignal**         : return a string describing the meaning of the signal number in SIG.
