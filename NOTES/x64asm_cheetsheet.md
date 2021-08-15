@@ -60,6 +60,35 @@ movsxd  rax, ecx    ; simply sign extend ecx to rax
 ```
 `movsx` only deals with `8` & `16-bit` values. If you want to sign-extend 32-bit value to 64-bits, use `movsxd` (although there is NO movzxd).
 
+* **cmp**
+The comparison is performed by subtracting the destination operand by source operand and then setting the status flags in the same manner as `sub` instruction. The result of the subtraction is not stored anywhere unlike `sub` instruction.
+
+* **jmp/jxx**  
+Manipulate RIP either conditionally `jxx` (if-else, switch, loops) or unconditionally `jmp` (interrupts, exceptions).
+```
+jmp n ==> simply sets RIP = RIP of next instruction + n bytes sign-extended-to-64-bits displacement.
+
+* Short, relative
+    RIP = RIP of next instr. + 1 byte sign-extended-to-64-bits displacement
+* Far, absolute indirect
+* Near, relative
+    RIP = RIP of next instr. + 4 bytes sign-extended-to-64-bits displacement
+* Near, absolute indirect
+    (address calculated with r/m64)
+
+Mnemonics Translation
+    A = above, unsigned notion      (0xffffffff > 0)
+    B = below, unsigned notion      
+    G = greater than, signed notion (0xffffffff < 0)
+    L = less than, signed notion
+    E = equal (same as Z, zero flag set)
+    N = not
+
+
+jmp -2      ; an infinite loop (jmp 2 bytes backwards)
+jle label   ; jmp if result of previous instr. was less than or equal
+```
+
 * **add/sub**  
 ```
 add rsp, 0x8        -> rsp = rsp + 0x8
@@ -106,6 +135,24 @@ imul    r64, r/m64, imm32   ; r64 = r/m64 * sign-extended imm32 (upto 64 bits)
 
 ```
 
+* **and/or/xor/not**  
+Boolean operators for these instructions in *C* are AND (**&**), OR (**|**), XOR (**^**), NOT (**~**). Either of the operands (except for *not*) can be in r/mX form. Both operands can't simultaneously be in r/mX form as **memory-to-memory operations** are not permitted in basic intel assembly.  
+```
+xor rax, rax
+and eax, 0xff       ; [set] eax = (get the last byte of eax)
+or  eax, 0xfe       ; [test] if (eax != 0xfe), LSB of eax is set
+not eax             ; [~eax] one's complement (flip all bits) of eax
+```
+
+* **inc/dec**  
+If you see *inc/dec* instructions, it is probably an **un-optimized code** or some **handwritten assembly**. These instructions have a single operand in r/mX form.
+
+* **test** (Bitwise Comparison)  
+test instruction *bitwise AND's* first and second operand and sets sign flags. Similar to `cmp` instruction, it **throws away** the result of bitwise AND.
+
+```
+test    eax, eax        ; eax & eax => sets flag accordingly
+```
 
 ## **Code Constructs**
 
