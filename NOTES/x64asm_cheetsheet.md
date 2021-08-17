@@ -95,6 +95,13 @@ add rsp, 0x8        -> rsp = rsp + 0x8
 sub rax, [rbx*2]    -> rax = rax - memoryPointedToBy(rbx*2)
 ```
 
+* **div/idiv**  
+When multiplies/divides are not a **power of 2**, compiler chooses to use div/idiv. Three forms of `div/idiv` (*unsigned/signed divide*).
+
+![unsigned div](./img/div.png)
+![signed div](./img/idiv.png)
+
+
 * **imul**  
 VScode prefers `imul` instead of vanilla `mul` to multiply 2 numbers. There are 3 forms of imul instruction.  
 
@@ -153,6 +160,27 @@ test instruction *bitwise AND's* first and second operand and sets sign flags. S
 ```
 test    eax, eax        ; eax & eax => sets flag accordingly
 ```
+
+* **shr/shl**  
+These instructions are generated when performing mul/div of some **`unsigned integers`** with a `power of 2`.  
+![shift logical right](./img/shr.png)
+![shift logical left](./img/shl.png)
+
+* **sar/sal**    
+These instructions are generated when performing mul/div of some **`signed integers`** with a `power of 2`. The `sal` instruction works exactly same as `shl`.
+![shift arithemetic right](./img/sar.png)
+![shift arithemetic left](./img/sal.png)
+
+
+* **rep stos** (**Rep**eat **Sto**re **S**tring)   
+For Microsoft VS compiler, remember RSI/RDI are callee-saved registers. Since RDI is getting acts as destination address here, it must be saved (probably on stack) before messing it up.  
+![repeat store string instruction](./img/rep_stos.png)
+![repeat store string instruction2](./img/rep_stos2.png)
+![repeat store string for x64](./img/rep_stos3.png)
+
+* **rep movs** (**Rep**eat Data String to **S**tring)   
+Along with using RDI/RSI/RCX, it uses Direction Flag (**DF**) to ensure either or increment or decrement to RSI/RDI registers.
+![repeat move data string to string](./img/rep_movs.png)
 
 ## **Code Constructs**
 

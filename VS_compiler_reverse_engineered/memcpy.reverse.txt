@@ -1,0 +1,53 @@
+memcpy (dst, src, len);
+
+rcx dst= &a
+rdx (src) = &b
+r8d (len) = 8
+
+
+rax = rcx (dst)
+r10 = 7FFE556E0000h
+
+if (r8 (unsigned len) > 0x0f) {
+00007FFE556E1410:
+	if (r8 (len) < 0x20) {
+		//4 movdqu instructions using xmm1/2 regs looking scary
+	}
+	else if (rdx (src) < rcx (dst)) {	// len > 0x20
+		r9 = rdx (src) + r8 (len)
+		if (rcx (dst) < r9 (src + len)) {	// src < dst < (src + len)
+			// src/dst overlapping condition
+		}		
+		else if ( *(7FFE556D5018h) < 3) {
+			goto 00007FFE556B1730
+		}
+	}
+	else if ( r8 (len) <= 0x2000 || r8 (len) > 0x180000) {
+		goto 00007FFE556B146C
+	}
+	else {
+		if ( *[7FFE2F2853BCh](value) & 2) {
+			00007FFE2F2612D0  push        rdi  
+			00007FFE2F2612D1  push        rsi  
+			00007FFE2F2612D2  mov         rdi,rcx  
+			00007FFE2F2612D5  mov         rsi,rdx  
+			00007FFE2F2612D8  mov         rcx,r8  
+			00007FFE2F2612DB  rep movs    byte ptr [rdi],byte ptr [rsi]  
+			00007FFE2F2612DD  pop         rsi  
+			00007FFE2F2612DE  pop         rdi  
+			00007FFE2F2612DF  ret 		
+		}
+	}
+}
+
+if (r8 (unsigned len) > 0x20)
+	goto 
+
+
+r9  = *(r10 + r8*4 + 28000h)
+r9 += r10
+goto r9 (00007FFE391C13FD)
+
+
+00007FFE556E13FD:	// 2 mov instr. memcpy'ing QWORD from src->dst
+	*((qword *)dst) = *((qword *)src)
