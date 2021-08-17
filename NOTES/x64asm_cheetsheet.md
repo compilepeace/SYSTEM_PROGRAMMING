@@ -181,6 +181,7 @@ For Microsoft VS compiler, remember RSI/RDI are callee-saved registers. Since RD
 * **rep movs** (**Rep**eat Data String to **S**tring)   
 Along with using RDI/RSI/RCX, it uses Direction Flag (**DF**) to ensure either or increment or decrement to RSI/RDI registers.
 ![repeat move data string to string](./img/rep_movs.png)
+![repeat move data string to string](./img/rep_movs2.png)
 
 ## **Code Constructs**
 
