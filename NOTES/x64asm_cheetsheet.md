@@ -1,11 +1,22 @@
 # ASSEMBLY x64 ARCHITECTURE CHEETSHEET
 Notekeeping from [Architecture 1001: x86-64 Assembly]. Below are some links to references for deeper dive.
-* Microsoft ABI documentation for [x64 calling conventions] 
-* For UNIX type platforms: [System V ABI] or [here] (AMD64) 
+* Microsoft ABI documentation for [x64 calling conventions]. 
+* For UNIX type platforms: [System V ABI] or [here] (AMD64).
+
+* Writeup of how Windows uses [CET] (Control-flow Enforcement Technology).  
+* [Intel CET manual].
+* GAS (GNU Assembler) [as].  
+* [Binary Fractions] and [Reciprocal multiplication] (Compiler Optimizations)
 
 [x64 calling conventions]: https://docs.microsoft.com/en-us/cpp/build/x64-calling-convention?view=msvc-160
 [System V ABI]:  https://raw.githubusercontent.com/wiki/hjl-tools/x86-psABI/x86-64-psABI-1.0.pdf
 [Architecture 1001: x86-64 Assembly]: https://p.ost2.fyi/courses/course-v1:OpenSecurityTraining2+Arch1001_x86-64_Asm+2021_v1/course/
+[CET]: https://windows-internals.com/cet-on-windows/
+[Intel CET manual]: https://software.intel.com/content/dam/develop/external/us/en/documents/control-flow-enforcement-technology-preview-711069.pdf
+[as]: https://en.wikipedia.org/wiki/GNU_Assembler
+[Binary Fractions]: https://www.electronics-tutorials.ws/binary/binary-fractions.html
+[Reciprocal multiplication]: https://homepage.divms.uiowa.edu/~jones/bcd/divide.html
+
 
 ## **Instruction Set**
 Most frequently used x64 instructions. Usually, memory to memory transfer operation is not possible.
@@ -16,6 +27,13 @@ r/mX Addressing Form includes:
 2. Memory,  [base only] -> [rbx] 
 3. Memory,  [base + index] -> [rbx + rcx*X]
 4. Memory,  [base + index*scale + displacement] -> [rbx + rcx*X + Y]
+```
+
+* **leave**  
+Combination of 2 instructions used in *function epilogue* via gcc.  
+```
+mov rsp, rbp
+pop rbp
 ```
 
 * **nop**  
@@ -44,10 +62,9 @@ assuming: rbx=0x2 rdx=0x1000
 lea rax, [rdx + rbx*8 + 5]      ; rax = 0x1015 (0x1000 + 0x10 + 0x5)
 ```
 
-* **mov**  
+* **mov/cmov**  
 Can move from reg->reg, reg->mem, imm->reg and vice versa but **`never from mem-mem`**. Source and Destination operands can mutually exclusively be given in `r/mX` memory addressing form. To cast a *C larger type* to *C smaller type*, we use `movsx` and `movzx`.       
-If you want to move a smaller value, say `short int` (2 byte) into a larger variable, say `signed int` (4 bytes), visual studio compiler chooses `movsx` instruction (*move with sign extended value of short*) perserving the negative sign (if any) of `short int` value whereas if you wish to move an smaller value (say `short int`) into a larger variable, say `unsigned int`, then VS compiler chooses to use `movzx` (move with zero extended value of short) variant of mov instruction
-
+If you want to move a smaller value, say `short int` (2 byte) into a larger variable, say `signed int` (4 bytes), visual studio compiler chooses `movsx` instruction (*move with sign extended value of short*) perserving the negative sign (if any) of `short int` value whereas if you wish to move an smaller value (say `short int`) into a larger variable, say `unsigned int`, then VS compiler chooses to use `movzx` (move with zero extended value of short) variant of mov instruction.  
 ```
 short s = -10;          // bx   (16 bits)
 unsigned int i;         // eax  (32 bits)
@@ -59,6 +76,8 @@ movsx   eax, bx     ; j = s (since signed value)
 movsxd  rax, ecx    ; simply sign extend ecx to rax
 ```
 `movsx` only deals with `8` & `16-bit` values. If you want to sign-extend 32-bit value to 64-bits, use `movsxd` (although there is NO movzxd).
+
+![cmov instruction](./img/cmov.png)
 
 * **cmp**
 The comparison is performed by subtracting the destination operand by source operand and then setting the status flags in the same manner as `sub` instruction. The result of the subtraction is not stored anywhere unlike `sub` instruction.
@@ -152,7 +171,7 @@ not eax             ; [~eax] one's complement (flip all bits) of eax
 ```
 
 * **inc/dec**  
-If you see *inc/dec* instructions, it is probably an **un-optimized code** or some **handwritten assembly**. These instructions have a single operand in r/mX form.
+If you see *inc/dec* instructions, it is probably an **un-optimized code** or some **handwritten assembly** since intel manual advices not to use these. These instructions have a single operand in r/mX form.
 
 * **test** (Bitwise Comparison)  
 test instruction *bitwise AND's* first and second operand and sets sign flags. Similar to `cmp` instruction, it **throws away** the result of bitwise AND.
@@ -182,6 +201,7 @@ For Microsoft VS compiler, remember RSI/RDI are callee-saved registers. Since RD
 Along with using RDI/RSI/RCX, it uses Direction Flag (**DF**) to ensure either or increment or decrement to RSI/RDI registers.
 ![repeat move data string to string](./img/rep_movs.png)
 ![repeat move data string to string](./img/rep_movs2.png)
+
 
 ## **Code Constructs**
 
@@ -235,3 +255,15 @@ By default, **x64 microsoft ABI** uses `fast-call` calling convention (in contra
 
 ![x86 registers calling convention](./img/x86_registers_calling_convention.png)
 ![x86 Microsoft VS call stack](./img/x86_stack.png)
+
+
+## **Intel v/s AT&T syntax**  
+
+![intel vs att1](./img/att1.png)
+![intel vs att2](./img/att2.png)
+![intel vs att3](./img/att3.png)
+![intel vs att4](./img/att4.png)
+![intel vs att5](./img/att5.png)
+![intel vs att6](./img/att6.png)
+
+
