@@ -17,6 +17,11 @@ Notekeeping from [Architecture 1001: x86-64 Assembly]. Below are some links to r
 [Binary Fractions]: https://www.electronics-tutorials.ws/binary/binary-fractions.html
 [Reciprocal multiplication]: https://homepage.divms.uiowa.edu/~jones/bcd/divide.html
 
+**NOTE**: My reversed source code for [binary bomb lab] - [reversed_bomb_lab.c] with [input file].
+
+[binary bomb lab]: ./binary_bomb_lab/ubuntu/bomb
+[reversed_bomb_lab.c]: ./binary_bomb_lab/reversed_bomb_lab.c
+[input file]: ./binary_bomb_lab/input_bomb
 
 ## **Instruction Set**
 Most frequently used x64 instructions. Usually, memory to memory transfer operation is not possible.
