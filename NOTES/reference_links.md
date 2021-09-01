@@ -2,6 +2,10 @@
 
 
 
+* One in all for [all CTF sites]  
+
+[all CTF sites]: https://fareedfauzi.gitbook.io/practice-ctf-list/pwn-or-binary-exploitation
+
 ## Malware Analysis
 * [Malware Analysis DIVA DFIR] (list of links to resources)
 * [Malware Unicorn Workshops]
