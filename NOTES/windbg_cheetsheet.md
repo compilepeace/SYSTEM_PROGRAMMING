@@ -4,8 +4,9 @@ Everything we input is treated as Hexadecimal by default.
 ## **Breakpoints** (b*)
 Both Code and Data Access (hardware) Breakpoints.
 ```
-> bp <address/symname>	# set a breakpoint
 > bl					# list breakpoints
+> bu kmdf!DriverEntry	# break on the as-of-yet-undefined location
+> bp <address/symname>	# set a breakpoint
 > bc <number> 			# breakpoint clear (number given by bl)
 > bd <number>			# breakpoint disable
 > be <number> 			# breakpoint enable
@@ -116,7 +117,7 @@ Modifying memory, e* (**e**nter values) form of instructions.
 
 ---
 
-## OST 1 
+## **OST 1** 
 
 ```
 # windbg -QY sample.exe args 		# Tells windgb to save the layout while creating
@@ -183,4 +184,23 @@ jmp esp
 > lm						# list modules
 > !lmi module_name			# info about a module
 > s ntdll Lb2000 ff e4		# find "ff e4" instruction in ntdll, size is b2000
+```
+
+---
+---
+
+## **Kernel Debugging**
+Put both debugger/debugee VM on the same network
+
+* **Inside debugee VM**   
+After installing & updating a windows debugee VM, enter the following commands inside *cmd.exe* (running as admin).
+```
+bcdedit /debug on
+bcdedit /dbgsettings net hostip:Debugger_VM_IP port:50505 key:a.b.c.d
+```
+
+To install/remove a driver on debugee VM 
+```
+devcon.exe install .\KmdfHelloWorld.inf Root\KmdfHelloWorld
+devcon.exe remove Root\KmdfHelloWorld
 ```
