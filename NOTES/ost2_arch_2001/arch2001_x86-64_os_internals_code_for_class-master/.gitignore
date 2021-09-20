@@ -1,0 +1,7 @@
+*.log
+*.txt
+*.user
+*.filters
+.DS_Store
+*/Debug
+*/x64
