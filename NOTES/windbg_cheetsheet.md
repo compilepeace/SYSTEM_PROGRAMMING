@@ -1,6 +1,10 @@
 # WINDBG CHEETSHEET
 Everything we input is treated as Hexadecimal by default.
 
+**NOTE**: To get started with driver development, click [here].
+
+[here]: https://docs.microsoft.com/en-us/windows-hardware/drivers/gettingstarted/
+
 ## **Breakpoints** (b*)
 Both Code and Data Access (hardware) Breakpoints.
 ```
@@ -203,4 +207,153 @@ To install/remove a driver on debugee VM
 ```
 devcon.exe install .\KmdfHelloWorld.inf Root\KmdfHelloWorld
 devcon.exe remove Root\KmdfHelloWorld
+```
+
+### **Display Commands (d\*)**  
+
+```
+# Display Local Variables
+> dv						# display variables (local) in the current context
+
+# Display Type (Structures)
+> dt {struct_type}				# display type (structures)
+> dt -r{depth} {struct_type}	# recursive display of struct
+
+> dt nt!_EPROCESS				# display structure type _EPROCESS
+> dt -r2 nt!_EPROCESS			# till depth = 2
+
+# Display Memory as Structure
+> dt {struct_type} {address}
+
+> dt nt!_EPROCESS ffffb38b26516340
+```
+
+### **Set Exception (sx\*)**
+This family of cmds can be used to break when a particular events occur. Two of the important forms are -   
+* **E**nable: sx**e** (break at exception)
+* **I**gnore: sx**i** (Notification only) 
+
+In userspace, a **module** is an *.exe* or *.dll*. In kernelspace, a **module** refers to a *.sys* driver or technically-a-.exe NT kernel itself.
+```
+> sxe ld						# break on every module load
+> sxe -c "list; of; cmds" ld	# execute commands on exception break
+> sxe -c ".lastevent" ld		# print info. about last event that occured
+
+> sxi -c ".lastevent; g" ld		# notify about every loaded module in order
+```
+* Microsoft documentation for [controlling exceptions and events].
+
+[controlling exceptions and events]: https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/controlling-exceptions-and-events
+
+
+### **List modules (lm)**
+List loaded modules in both userspace and kernelspace
+
+```
+> lm				# list loaded modules
+> lm u				# list modules (userspace only) 
+> lm k				# list modules (kernel only)
+
+> lm sm 			# list modules sort modules (alphabetically)
+> lm f				# list modules with filesystem path
+
+> lm smkf			# combining above
+> lm smkv			# 'v' for verbose output
+
+> lm a {address}	# If you'd like to see if a given memory address resides within the address range of a particular module, this can be done with
+```
+
+
+### **Loading 3rd party Windbg plugins**
+
+```
+> !load {full_path_to_plugin_module}
+> !unload {full_path_to_plugin_module}
+```
+
+### **KERNEL ONLY COMMANDS**
+
+
+#### **Process Context** (view and change)
+```
+# display CURRENT process context (!process -1 [flags])	
+> !process -1 0
+
+# list ALL processes (!process 0 [flags])
+> !process 0 0			
+
+# Search for the process context based on EXEcutable name (!process 0 [flags] [exe name])
+> !process 0 0 notepad.exe
+> !process 0 f cmd.exe				# higher verbosity output flag	
+
+# Search for the process context based on executable process ID (PID) (!process [PID] [flags])
+> !process 0x1b44 0
+
+
+
+# Change process context to target executable (.process /i /r /p ["PROCESS" address from !process output])
+> .process /i /r /p ffffdc01570e4340
+```
+
+* Microsoft documentation for [!process] (view)
+* Microsoft documentation for [.process] (modify)
+
+[!process]: https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/-process
+[.process]: https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/-process--set-process-context-s
+
+#### **Examining Model Specific Registers (MSRs)** 
+
+```
+Reading MSR (rdmsr [MSR #])
+> rdmsr 0xC0000100
+
+Writing MSR (wrmsr [MSR #] [value to write])
+> wrmsr 0xC0000100 0x1di07
+```
+
+#### **Examining GDT (Global Descriptor Table)** (!ms_gdt)
+This can be examined with *SwishDbg* plugin for windbg.
+
+```
+> !ms_gdt			# SwishDbg plugin command
+```
+
+#### **Examining IDT (Interrupt Descriptor Table)** (!idt)
+The SwishDbg plugin command (!ms_idt) also prints out IDT, but it also attempts to detect if a given interrupt is patched/hooked. It was more commonly the case before **Microsoft's PatchGuard** and **Virtualization-based Security** (**VBS**).
+
+```
+> !idt					# examine entire IDT with windbg command
+> !ms_idt				# SwishDbg plugin command	
+
+# Printing a specific interrupt (!idt [interrupt #])
+> !idt 0n14				# similar to below cmd, it prints interrupt number 14 (0xe)
+> !idt 0xe
+```	
+
+#### **Examining Virtual Memory and Page Tables** (!pte)
+Come back to it later (bookmarked page in intermediate windbg).
+
+```
+> !vtop	0 [addresss]	# virtual to physical (address translation)
+> !vtop target_memory_space_page_table_base_("DirBase") address
+
+> !ptov 889ba00			# shows all the Physical to Virtual translations for a given page table
+```
+
+#### **Using !pool to associate a memory address with a data structure or driver**
+
+```
+> !pool
+> !pool [memory_address]
+```
+
+* a list of pool tags can be found [here].
+
+[here]: https://github.com/jjzhang166/windbgtool/blob/master/Dependecies/x64/triage/pooltag.txt
+
+
+#### **Examining Windows Interrupt Request Level (IRQL)**
+
+```
+> !irql
 ```
