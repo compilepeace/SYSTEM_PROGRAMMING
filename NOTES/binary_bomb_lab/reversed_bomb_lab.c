@@ -169,7 +169,17 @@ ret:
 }
 */
 
-// Mathematical expression (expr) is *(rbp+4) while debugging on Windbg
+/*
+Mathematical expression (expr) is *(rbp+4) while debugging on Windbg
+
+func4 (x, 0, 14) [expr = 7 (i.e. (14-0-0)/2 + 0)]
+	|
+	|
+	|--> if (x > 7): call func4 (x, 7+1, 14): [expr = 7 (i.e. (14-16)/2 + 8)]
+	|
+	|--> if (x < 7): call func4 (x, 0, 7-1):  [expr = 3 (i.e. (6-0)/2 + 0]
+
+*/
 func4 (int x, int a, int b) {
 
 	int eax = (((signed qword typecast)(b - a)) - a)/2;
