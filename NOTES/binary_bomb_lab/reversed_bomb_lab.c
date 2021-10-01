@@ -141,7 +141,7 @@ void phase_3 (const char *ips) {
  * 
  * Then we can just check into what branch will make the value of ebx equal to
  * 0xa which is getting checked by the caller (phase_4).
- */
+ *
 int func4 (int ip1, int a, int b) {
     signed int ebx, eax;
     
@@ -157,7 +157,7 @@ marker:
     }
     
     if (ebx < ip1) {
-        a = rbx - 1;
+        a = rbx + 1;
         func4 (ip1, a, b);
         ebx += eax;
         goto ret;
@@ -167,6 +167,34 @@ ret:
     return ebx;
     
 }
+*/
+
+// Mathematical expression (expr) is *(rbp+4) while debugging on Windbg
+func4 (int x, int a, int b) {
+
+	int eax = (((signed qword typecast)(b - a)) - a)/2;
+	int expr = ecx = a + eax;
+	
+
+	// base case
+	if (expr == x) {
+		return expr;
+	}
+	 
+	if (expr < x) {
+		// 0x00007ff603771f9a
+		eax = func4 (x, expr + 1, b);
+	}	
+
+	else {
+		// 0x00007ff603771f7a:
+		eax = func4 (x, a, expr - 1);
+	}
+
+	eax += expr 
+	return eax;
+}
+
 
 
 /* 
