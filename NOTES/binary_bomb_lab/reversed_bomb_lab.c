@@ -252,6 +252,36 @@ void phase_4 (const char *ips) {
  * 6 (0xf), e, 2, 1, a, 0, 8, 4, 9, d, b, 7, 3, c, 5, 0xf
  * 
  * input: 5 115
+ 
+ // Reversed on Windows using Windbg
+ void phase_5 (const char *ips) {
+	int a, b;			// a is [rbp+64], b is [rbp+84]
+
+
+	// rbp+0x1a0 is &input_string[0]
+	if (sscanf ( ips, "%d %d", a, b) < 2)	explode_bomb();
+
+	a = a & 0x0f;
+	if (a[0] == 0xf) explode_bomb();     // check #2
+	[rbp+4] = [rbp+24] = 0;
+
+	do {
+		// SAFE EXIT LIES HERE
+		if (a == 0x0f) {
+			if ([rbp+4] != 0x0f) explode_bomb();
+			if ([rbp+24] == b)
+				return;
+		}
+		else {
+			++[rbp+4]
+			a = base[a*4]		// base is RCX (00007ff6`0377f1d0)
+			[rbp+24] = [rbp+24] + a
+		}
+	
+	} while ( a != 0xf )	
+
+}
+ 
  */
 void phase_5 (const char *ips) {
     int a[2];
