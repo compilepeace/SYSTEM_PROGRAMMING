@@ -2,6 +2,7 @@
 Notekeeping from [Architecture 1001: x86-64 Assembly]. Below are some links to references for deeper dive.
 * Microsoft ABI documentation for [x64 calling conventions]. 
 * For UNIX type platforms: [System V ABI] or [here] (AMD64).
+* [x64 assembly detailed notes]
 
 * Writeup of how Windows uses [CET] (Control-flow Enforcement Technology).  
 * [Intel CET manual].
@@ -11,6 +12,7 @@ Notekeeping from [Architecture 1001: x86-64 Assembly]. Below are some links to r
 [x64 calling conventions]: https://docs.microsoft.com/en-us/cpp/build/x64-calling-convention?view=msvc-160
 [System V ABI]:  https://raw.githubusercontent.com/wiki/hjl-tools/x86-psABI/x86-64-psABI-1.0.pdf
 [Architecture 1001: x86-64 Assembly]: https://p.ost2.fyi/courses/course-v1:OpenSecurityTraining2+Arch1001_x86-64_Asm+2021_v1/course/
+[x64 assembly detailed notes]: ./x64asm_detailed.md
 [CET]: https://windows-internals.com/cet-on-windows/
 [Intel CET manual]: https://software.intel.com/content/dam/develop/external/us/en/documents/control-flow-enforcement-technology-preview-711069.pdf
 [as]: https://en.wikipedia.org/wiki/GNU_Assembler
