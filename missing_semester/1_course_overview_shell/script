@@ -1,0 +1,4 @@
+#!/bin/sh
+curl --head --silent https://missing.csail.mit.edu
+date > last-modified.txt
+tldr tar
