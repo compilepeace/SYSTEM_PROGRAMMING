@@ -160,10 +160,10 @@ Ctrl+ww		- Switch between windows.
 :e<TAB>		- <TAB> uses autocompletion.	
 
 :set ic		- set 'ignore-case' senstivity for searching
-:set hls is	- set 'hlsearch' (highlight) and 'incsearch' (show partial matches too)
+:set hls is	- set 'hlsearch' (highlight) and 'incsearch' (incremental search)
 
 :set noic	- set 'no-ignore-case' for searching, i.e. enfore case-senstivity
 :set nohls	- disable search highlighting
-:set nois	- disable 'partial-match' search results
+:set nois	- disable 'incremental search', i.e. search while typing itself '/typi..'
 :set nocp	- disable compatability mode
 ```
