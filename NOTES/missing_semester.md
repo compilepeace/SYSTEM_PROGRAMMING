@@ -1,7 +1,22 @@
 # Missing Semester
 This is my notekeeping from [missing semester].
 
+* [virtualbox network configuration guide]
+* learn using python debugger: [pdb tutorial] or [pdb detailed]
+* reverse debugging: [rr] (binaries) or [RevPDB]/[Pytrace]
+* python call graph visualization - [Pycallgraph] and [graphviz]
+
 [missing semester]: https://missing.csail.mit.edu/ 
+[virtualbox network configuration guide]: https://www.nakivo.com/blog/virtualbox-network-setting-guide/
+[pdb tutorial]: https://github.com/spiside/pdb-tutorial
+[pdb detailed]: https://realpython.com/python-debugging-pdb/
+[rr]: https://rr-project.org/
+[RevPDB]: https://morepypy.blogspot.com/2016/07/reverse-debugging-for-python.html
+[Pytrace]: https://pytrace.com/
+[Pycallgraph]: http://pycallgraph.slowchop.com/en/master/
+[graphviz]: http://graphviz.org/
+
+## **1 The Shell**
 
 
 ## **4 Data Wrangling**
@@ -106,6 +121,7 @@ Sessions
 
 ```
 tmux
+tmux source-file ~/.tmux.conf	# configure tmux using config. script
 sleep 1000 &
 tmux a			# attach to the session
 tmux ls			# list all sessions (default naming is number based '0', '1' ...)
@@ -146,6 +162,32 @@ These are the configuration files/startup scripts used by programs (for user-cus
 
 ```
 
+### Remote login using ssh
+Using ssh to login to server.
+```
+ssh username@hostname 		# login via ssh
+ssh username@hostname pwd	# execute command $(ls) on remote server
+ssh-keygen -o -b 4096 -t rsa	# generate cryptographic key pair <public+private>
+
+ssh-copy-id -i ~/.ssh/id_rsa.pub username@hostname	# copy public key from client to server to authorize without typing passphrase
+
+```
+* ssh configuration file `~/.ssh/config` looks like this
+```
+Host vm
+	User username_in_ssh_server_here
+	HostName ssh_server_ip_goes_here
+	IdentityFile ~/.ssh/id_rsa
+	LocalForward 9999 localhost:8888 
+```
+
+* Editing SSH server config file `/etc/ssh/sshd_config`
+```
+PasswordAuthentication		# disable this
+PermitRootLogin			# disable this
+
+$ sudo service sshd restart	# to restart the sshd service
+```
 
 
 
