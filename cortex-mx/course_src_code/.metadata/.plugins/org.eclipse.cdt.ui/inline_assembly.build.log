@@ -1,0 +1,17 @@
+13:04:37 **** Incremental Build of configuration Debug for project inline_assembly ****
+make -j12 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "inline_assembly.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/abhinav/course-armcortex-mx/Source_code/inline_assembly/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="inline_assembly.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: inline_assembly.elf
+ 
+arm-none-eabi-size   inline_assembly.elf 
+arm-none-eabi-objdump -h -S  inline_assembly.elf  > "inline_assembly.list"
+   text	   data	    bss	    dec	    hex	filename
+    712	      8	   1568	   2288	    8f0	inline_assembly.elf
+Finished building: default.size.stdout
+ 
+Finished building: inline_assembly.list
+ 
+
+13:04:39 Build Finished. 0 errors, 0 warnings. (took 1s.284ms)
+

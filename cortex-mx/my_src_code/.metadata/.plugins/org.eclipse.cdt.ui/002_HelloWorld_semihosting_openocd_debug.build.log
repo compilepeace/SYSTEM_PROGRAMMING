@@ -1,0 +1,9 @@
+20:44:25 **** Clean-only build of configuration Debug for project 002_HelloWorld_semihosting_openocd_debug ****
+make -j12 clean 
+rm -rf ./Startup/startup_stm32f407vgtx.d ./Startup/startup_stm32f407vgtx.o
+rm -rf ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
+rm -rf 002_HelloWorld_semihosting_openocd_debug.elf 002_HelloWorld_semihosting_openocd_debug.list 002_HelloWorld_semihosting_openocd_debug.map default.size.stdout
+ 
+
+20:44:26 Build Finished. 0 errors, 0 warnings. (took 728ms)
+

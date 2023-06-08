@@ -1,0 +1,3 @@
+[submodule "exploitation/htaoe/SHELLCODING_INTEL_x86-64"]
+	path = exploitation/htaoe/SHELLCODING_INTEL_x86-64
+	url = https://github.com/compilepeace/SHELLCODING_INTEL_x86-64

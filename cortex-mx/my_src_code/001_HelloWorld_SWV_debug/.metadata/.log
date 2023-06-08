@@ -1,0 +1,81 @@
+!SESSION 2023-06-07 19:09:45.776 -----------------------------------------------
+eclipse.buildId=Version 1.12.1
+java.version=11.0.17
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_IN
+Command-line arguments:  -data /home/abhinav/cortex-mx/my_src_code/001_HelloWorld_SWV_debug -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2023-06-07 19:09:51.350
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2023-06-07 19:09:51.352
+!MESSAGE Log4j2 initialized with config file /home/abhinav/cortex-mx/my_src_code/001_HelloWorld_SWV_debug/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2023-06-07 19:09:53.920
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-06-07 19:11:05.451
+!MESSAGE Indexed '011_fault_generation' (3 sources, 55 headers) in 1.09 sec: 2,115 declarations; 3,012 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.039%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-06-07 19:11:06.956
+!MESSAGE Indexed '009_interrupt_priority_configuration' (3 sources, 0 headers) in 0.062 sec: 80 declarations; 80 references; 12 unresolved inclusions; 0 syntax errors; 42 unresolved names (21%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-06-07 19:11:07.004
+!MESSAGE Indexed '010_debug_exception_entry_exit_sequence' (3 sources, 0 headers) in 0.044 sec: 74 declarations; 63 references; 12 unresolved inclusions; 0 syntax errors; 36 unresolved names (21%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-06-07 19:11:09.816
+!MESSAGE Indexed '006_bit_banding' (3 sources, 53 headers) in 0.395 sec: 1,958 declarations; 2,851 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.042%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-06-07 19:11:12.535
+!MESSAGE Indexed '005_Access_Levels' (3 sources, 55 headers) in 0.666 sec: 2,106 declarations; 2,979 references; 0 unresolved inclusions; 2 syntax errors; 2 unresolved names (0.039%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-06-07 19:11:12.762
+!MESSAGE Indexed '004_Operational_Modes' (3 sources, 55 headers) in 0.225 sec: 2,102 declarations; 2,977 references; 0 unresolved inclusions; 2 syntax errors; 2 unresolved names (0.039%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-06-07 19:11:12.779
+!MESSAGE Indexed '002_HelloWorld_semihosting_openocd_debug' (3 sources, 0 headers) in 0.014 sec: 69 declarations; 59 references; 11 unresolved inclusions; 0 syntax errors; 31 unresolved names (19%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-06-07 19:11:12.966
+!MESSAGE Indexed '012_svc_handler_custom' (3 sources, 53 headers) in 0.186 sec: 1,973 declarations; 2,885 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.041%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-06-07 19:11:13.246
+!MESSAGE Indexed '008_USART3_in_pend' (3 sources, 55 headers) in 0.277 sec: 2,101 declarations; 2,974 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.039%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-06-07 19:11:13.910
+!MESSAGE Indexed '013_first_task_scheduler' (4 sources, 57 headers) in 0.657 sec: 2,216 declarations; 3,275 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.036%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-06-07 19:11:15.355
+!MESSAGE Indexed '007_stack_msp_psp' (3 sources, 55 headers) in 0.444 sec: 2,101 declarations; 2,968 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.039%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-06-07 19:11:17.637
+!MESSAGE Indexed '003_inline_assembly' (3 sources, 53 headers) in 0.271 sec: 1,956 declarations; 2,835 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.042%)
+!SESSION 2023-06-07 19:14:19.655 -----------------------------------------------
+eclipse.buildId=Version 1.12.1
+java.version=11.0.17
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_IN
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2023-06-07 19:14:24.636
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2023-06-07 19:14:24.637
+!MESSAGE Log4j2 initialized with config file /home/abhinav/cortex-mx/my_src_code/001_HelloWorld_SWV_debug/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2023-06-07 19:14:29.401
+!MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2023-06-07 19:16:02.077 -----------------------------------------------
+eclipse.buildId=Version 1.12.1
+java.version=11.0.17
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_IN
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2023-06-07 19:16:07.144
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2023-06-07 19:16:07.145
+!MESSAGE Log4j2 initialized with config file /home/abhinav/cortex-mx/my_src_code/001_HelloWorld_SWV_debug/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2023-06-07 19:16:11.963
+!MESSAGE Started RMI Server, listening on port 41337

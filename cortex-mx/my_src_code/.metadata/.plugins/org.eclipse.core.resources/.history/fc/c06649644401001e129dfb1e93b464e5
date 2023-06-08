@@ -1,0 +1,39 @@
+/*
+ * main.h
+ *
+ *  Created on: 02-Jun-2023
+ *      Author: abhinav
+ */
+
+#ifndef MAIN_H_
+#define MAIN_H_
+
+/* macros for stack memory calculations */
+#define SIZE_TASK_STACK 	1024U
+#define SIZE_SCHED_STACK 	1024U
+
+#define SRAM_START 			0x20000000U					// cortex-M4 generic user-guide
+#define SIZE_SRAM 			( (128) * (1024) )
+#define SRAM_END			( (SRAM_START) + (SIZE_SRAM) )	// cortex-M4 supports addressing till 0x3FFFFFFFU
+
+#define T1_STACK_START		( SRAM_END - (0 * SIZE_TASK_STACK) )
+#define T2_STACK_START		( SRAM_END - (1 * SIZE_TASK_STACK) )
+#define T3_STACK_START		( SRAM_END - (2 * SIZE_TASK_STACK) )
+#define T4_STACK_START		( SRAM_END - (3 * SIZE_TASK_STACK) )
+#define IDLE_STACK_START	( SRAM_END - (4 * SIZE_TASK_STACK) )
+#define SCHED_STACK_START	( SRAM_END - (5 * SIZE_TASK_STACK) )
+
+// macros for desired clock frequency
+#define TICK_HZ		1000U
+
+// input clock to systick timer (processor HSI clock)
+#define HSI_CLOCK			16000000U		// MHz = 10^6
+#define SYSTICK_TIM_CLK		HSI_CLOCK		// systick timer clock
+
+#define MAX_TASKS 	5
+#define DUMMY_XPSR  0x01000000U
+
+#define TASK_READY_STATE 0x00
+#define TASK_BLOCKED_STATE 0xff
+
+#endif /* MAIN_H_ */
